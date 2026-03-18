@@ -1,3 +1,8 @@
 def call(String image, String tag) {
-    sh "/usr/bin/docker build -t avanish9795/notes-app:latest/${image}:${tag} ."
+    sh """
+    echo "PATH=$PATH"
+    which docker
+    docker --version
+    docker build -t avanish9795/${image}:${tag} .
+    """
 }
