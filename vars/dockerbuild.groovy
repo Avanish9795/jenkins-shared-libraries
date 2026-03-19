@@ -3,7 +3,7 @@ def call(String image, String tag) {
     echo "PATH=\$PATH"
     which docker
     docker --version
-    docker build -t avanish9795/${image}:${tag} .
+    docker build -t mishraavanish9795/${image}:${tag} .
     """
 }
 
