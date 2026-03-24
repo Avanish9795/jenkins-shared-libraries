@@ -3,7 +3,9 @@ withCredentials([usernamePassword(
     usernameVariable: 'USER',
     passwordVariable: 'PASS'
 )]) {
-    sh "docker login -u $USER -p $PASS"
-    sh "docker tag notes-app:latest yourdockerhub/notes-app:latest"
-    sh "docker push yourdockerhub/notes-app:latest"
+    sh '''
+    echo $PASS | docker login -u $USER --password-stdin
+    docker tag notes-app:latest $USER/notes-app:latest
+    docker push $USER/notes-app:latest
+    '''
 }
