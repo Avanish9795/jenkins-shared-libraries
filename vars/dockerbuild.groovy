@@ -1,10 +1,15 @@
-def call(String image, String tag) {
-    sh """
-    echo "PATH=\$PATH"
-    which docker
-    docker --version
-    docker build -t mishraavanish9795/${image}:${tag} .
-    """
-}
+def call(String dockerUser, String image, String tag) {
+    try {
+        sh """
+        echo "PATH=\$PATH"
+        which docker
+        docker --version
 
-return this
+        echo "Building Docker image: ${dockerUser}/${image}:${tag}"
+        docker build -t ${dockerUser}/${image}:${tag} .
+        """
+    } catch (Exception e) {
+        echo "Docker build failed!"
+        throw e
+    }
+}
