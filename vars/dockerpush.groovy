@@ -1,13 +1,9 @@
-// force update
-def call(String creds, String image, String tag) {
-    withCredentials([usernamePassword(
-        credentialsId: creds,
-        usernameVariable: 'USER',
-        passwordVariable: 'PASS'
-    )]) {
-        sh """
-        echo \$PASS | docker login -u \$USER --password-stdin
-        docker push mishraavanish9795/${image}:${tag}
-        """
-    }
+withCredentials([usernamePassword(
+    credentialsId: 'dockerhub',
+    usernameVariable: 'USER',
+    passwordVariable: 'PASS'
+)]) {
+    sh "docker login -u $USER -p $PASS"
+    sh "docker tag notes-app:latest yourdockerhub/notes-app:latest"
+    sh "docker push yourdockerhub/notes-app:latest"
 }
